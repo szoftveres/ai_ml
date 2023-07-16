@@ -1,4 +1,4 @@
-# AI, machine learning with neural network
+# AI, machine learning with neural network (Genetic algorithm)
 
 Let's teach the little @ guy how to clear the obstacles, using neural network and machine learning, in ~250 lines of plain old ANSI C.
 
