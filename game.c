@@ -8,12 +8,12 @@
 #define ROWS (22)
 #define COLS (80)
 
-
 static char field[ROWS][COLS];
 
 #define MECOL (COLS/2)
 static int me;
 
+static int diff;
 
 void
 draw_field (void) {
@@ -40,8 +40,7 @@ draw_field (void) {
     fflush(0);
 }
 
-
-void
+int
 shift (void) {
     int x;
     int y;
@@ -54,8 +53,11 @@ shift (void) {
             field[y][x-1] = 0;
     }
     /* adding obstacles */
-    field[rand() % ROWS][COLS-1] = 1;
-    field[rand() % ROWS][COLS-1] = 1;
+    for (x = 0; x != diff; x++) {
+        field[rand() % ROWS][COLS-1] = 1;
+    }
+
+    return ((me < 0) || (me >= ROWS) || field[me][MECOL]);
 }
 
 void
@@ -68,14 +70,10 @@ down (void) {
     me++;
 }
 
-int
-evaluate (void) {
-    return ((me < 0) || (me >= ROWS) || field[me][MECOL]);
-}
-
 void
-init_game (void) {
+init_game (int difficulty) {
     int i;
+    diff = difficulty;
 
     memset(field, 0x00, sizeof(field));
     me = ROWS/2;
@@ -85,17 +83,16 @@ init_game (void) {
     }
 }
 
-
 void
 lookahead(uint8_t vis[]) {
     int x;
-    int y;
     int it = 0;
     for (x = 0; x != 6; x++) {
+        int y;
         for (y = me - (x + 1); y != (me + x + 2); y++) {
-            vis[it] = field[y][MECOL + x] ? (6-x)/3 : 0x00;
+            vis[it] = field[y][MECOL + x] ? 1 : 0x00;
             if ((y <= 0) || (y >= ROWS)) {
-                vis[it] = (6-x)/3;
+                vis[it] = 1;
             }
             it++;
         }

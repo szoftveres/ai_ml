@@ -3,12 +3,11 @@
 
 #include <stdint.h>
 
-void init_game (void);
+void init_game (int difficulty);
 void draw_field (void);
-void shift (void);
+int shift (void);
 void up (void);
 void down (void);
-int evaluate (void);
 void lookahead(uint8_t vis[]);
 
 #endif

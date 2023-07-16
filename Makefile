@@ -8,7 +8,7 @@ PROGRAM = aigame
 CC = gcc
 AS = gcc
 LD = gcc
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 ASFLAGS = 
 LDFLAGS =  
 
