@@ -26,10 +26,19 @@ static instance_t population[POP_SIZE];
 static instance_t winners[REPR_NUM];
 
 
-void
-think (instance_t *instance) {
+int
+look_think_act (instance_t *instance) {
     int f;
     int a;
+    int i;
+    int max = 0;
+    int rc = 0;
+    uint8_t field[FIELDS];
+    int action[ACTIONS];
+
+    lookahead(field);
+
+    /* Evaluating */
     for (a = 0; a != ACTIONS; a++) {
         int weight = 0;
         for (f = 0; f != FIELDS; f++) {
@@ -37,13 +46,8 @@ think (instance_t *instance) {
         }
         action[a] = weight;
     }
-}
 
-void
-act (void) {
-    int i;
-    int max = 0;
-    int a = 0;
+    /* Decision making */
     for (i = 0; i != ACTIONS; i++) {
         if (action[i] > max) {
             max = action[i];
@@ -51,9 +55,10 @@ act (void) {
         }
     }
     switch (a) {
-        case 0: up(); break;
-        case 2: down(); break;
+        case 0: up(); rc = 1; break;
+        case 2: down(); rc = 1; break;
     }
+    return rc;
 }
 
 
@@ -121,21 +126,21 @@ main (int argc, char** argv) {
     while (1) {
         for (p = 0; p != POP_SIZE; p++) {
             init_game();
+            int moves = 0;
             for (i = 0; i != 36000; i++) {
                 shift();
-                if (((!(gen % 500)) && (p < 3))) {
+                if (((!(gen % 100)) && (p < 3))) {
                     draw_field();
                     usleep(50000u);
                     fflush(0);
                 }
-                lookahead(field);
+
+                moves += look_think_act(&population[p]);
 
                 if (evaluate()) {
-                    population[p].score = i;
+                    population[p].score = i + ((i - moves) / 4);
                     break;
                 }
-                think(&population[p]);
-                act();
                 if (i > 35000) {
                     printf("WINNER\n");
                     return 0;
