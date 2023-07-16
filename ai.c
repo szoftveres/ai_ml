@@ -6,12 +6,13 @@
 #include <stdint.h>
 #include "aigame.h"
 
-#define POP_SIZE (96)
+#define FIELDS (3 + 5 + 7 + 9 + 11 + 13)
+#define ACTIONS (3)
+
+#define POP_SIZE (FIELDS * ACTIONS * 4)
 #define REPR_FRACT (8)
 #define REPR_NUM (POP_SIZE / REPR_FRACT)
 
-#define FIELDS (48)
-#define ACTIONS (3)
 
 typedef struct instance_s {
     int score;
@@ -30,7 +31,7 @@ look_think_act (instance_t *instance) {
     int action[ACTIONS];
 
     /* Information gathering */
-    lookahead(field);
+    lookahead(FIELDS, field);
 
     /* Evaluating */
     for (a = 0; a != ACTIONS; a++) {
@@ -134,7 +135,7 @@ main (void) {
                 if (shift()) {
                     /* The fitness function (with extra rewards) */
                     population[p].score = i;
-                    population[p].score += ((i - moves) / 4);
+                    //population[p].score += ((i - moves) / 4);
                     break;
                 }
                 if (((!(gen % 100)) && (p >= (POP_SIZE / 2)) && p < (POP_SIZE / 2) + 3)) {

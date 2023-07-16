@@ -84,10 +84,10 @@ init_game (int difficulty) {
 }
 
 void
-lookahead(uint8_t vis[]) {
-    int x;
+lookahead (int size, uint8_t vis[]) {
+    int x = 0;
     int it = 0;
-    for (x = 0; x != 6; x++) {
+    while (1) {
         int y;
         for (y = me - (x + 1); y != (me + x + 2); y++) {
             vis[it] = field[y][MECOL + x] ? 1 : 0x00;
@@ -95,7 +95,10 @@ lookahead(uint8_t vis[]) {
                 vis[it] = 1;
             }
             it++;
+            if (it == size) {
+                return;
+            }
         }
+        x++;
     }
 }
-

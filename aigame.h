@@ -8,6 +8,5 @@ void draw_field (void);
 int shift (void);
 void up (void);
 void down (void);
-void lookahead(uint8_t vis[]);
-
+void lookahead (int size, uint8_t vis[]);
 #endif
