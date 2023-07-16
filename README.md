@@ -11,7 +11,7 @@ The obstacle field is unique for each run, hence the algorithm comes up with a g
 
 The algorithm also promotes less erratic behaviour by rewarding instances that complete their track with fewer up- or down movements.
 
-To run, open a terminal and make sure its size is set to default 80 x 25
+To run, open a terminal and make sure its size is set to default 80 x 25 (the graphics are just rolling printf statements - in theory you could run this simulation on a PDP-11 with Teletype if you had enough paper to print on)
 ```
 make clean ; make && ./aigame.bin
 ```
