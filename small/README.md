@@ -1,7 +1,7 @@
 # Teaching a neural network through genetic algorithm
 
 Let's teach the little @ guy how to navigate between the obstacles, using neural network and genetic algorithm, in ~250 lines of classic ANSI C.
-(a greatly enhanced version of the same AI with deep learning and massive parallelism is [here](https://github.com/szoftveres/ai_ml/tree/main/big)
+(a greatly enhanced version of the same AI with deep learning and massive parallelism is [here](https://github.com/szoftveres/ai_ml/tree/main/big) )
 
 ![game](game.png)
 
