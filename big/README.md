@@ -1,6 +1,6 @@
 # Teaching a (deep) neural network through (massively parallel) genetic algorithm
 
-This is a massively enhanced version of the [250 line C code AI project](https://github.com/szoftveres/ai_ml/small/)
+This is a massively enhanced version of the [250 line C code AI project](https://github.com/szoftveres/ai_ml/small)
 
 #### Deep learning by:
  * Introducing multiple levels of hidden layers in the neural network
