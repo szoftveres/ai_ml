@@ -48,7 +48,6 @@ think_and_decide (gamefield_t *game, instance_t *instance) {
     int max = 0;
 
     int hidden1[HIDDEN1];
-    int hidden2[HIDDEN2];
     int action[ACTIONS];
 
     uint8_t *field = malloc(instance->n_input * sizeof(uint8_t));
@@ -77,18 +76,10 @@ think_and_decide (gamefield_t *game, instance_t *instance) {
 
     free(field);
 
-    for (h = 0; h != HIDDEN2; h++) {
-        int weight = 0;
-        int f;
-        for (f = 0; f != HIDDEN1; f++) {
-            weight += (hidden1[f] ? 1 : 0) * ((int)instance->nn_h[f*(h+1)]);
-        }
-        hidden2[h] = weight / HIDDEN1;
-    }
     for (a = 0; a != ACTIONS; a++) {
         int weight = 0;
-        for (h = 0; h != HIDDEN2; h++) {
-            weight += hidden2[h] * ((int)instance->nn_2[h*(a+1)]);
+        for (h = 0; h != HIDDEN1; h++) {
+            weight += hidden1[h] * ((int)instance->nn_2[h*(a+1)]);
         }
         action[a] = weight;
     }

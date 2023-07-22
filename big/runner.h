@@ -9,12 +9,11 @@
 
 #define FIELDS (3 + 5 + 7 + 9 + 11 + 13)
 #define HIDDEN1 (27)
-#define HIDDEN2 (9)
 #define ACTIONS (3)
 
 //static int hidden_layers[] = {18, 18};
 
-#define POP_SIZE (((FIELDS * HIDDEN1) + (HIDDEN1 * HIDDEN2) + (HIDDEN2 * ACTIONS)) * 2)
+#define POP_SIZE (((FIELDS * HIDDEN1) + (HIDDEN1 * ACTIONS)) * 2)
 #define REPR_NUM  (POP_SIZE / 12)
 
 
@@ -39,8 +38,7 @@ typedef struct instance_s {
     int n_output;
 
     uint8_t nn_1[FIELDS * HIDDEN1];
-    uint8_t nn_h[HIDDEN1 * HIDDEN2];
-    uint8_t nn_2[HIDDEN2 * ACTIONS];
+    uint8_t nn_2[HIDDEN1 * ACTIONS];
 } instance_t;
 
 void job_dispatcher_init (run_mode_t mode, char* ips[], int nconn);

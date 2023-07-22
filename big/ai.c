@@ -18,10 +18,7 @@ init_population (void) {
         for (n = 0; n != (FIELDS * HIDDEN1); n++) {
             population[i].nn_1[n] = rand() % 256;
         }
-        for (n = 0; n != (HIDDEN1 * HIDDEN2); n++) {
-            population[i].nn_h[n] = rand() % 256;
-        }
-        for (n = 0; n != (HIDDEN2 * ACTIONS); n++) {
+        for (n = 0; n != (HIDDEN1 * ACTIONS); n++) {
             population[i].nn_2[n] = rand() % 256;
         }
     }
@@ -64,10 +61,7 @@ next_gen (void) {
         for (p = 0; p != (FIELDS * HIDDEN1); p++) {
             population[it++].nn_1[p] = rand() % 256;
         }
-        for (p = 0; p != (HIDDEN1 * HIDDEN2); p++) {
-            population[it++].nn_h[p] = rand() % 256;
-        }
-        for (p = 0; p != (HIDDEN2 * ACTIONS); p++) {
+        for (p = 0; p != (HIDDEN1 * ACTIONS); p++) {
             population[it++].nn_2[p] = rand() % 256;
         }
     }
