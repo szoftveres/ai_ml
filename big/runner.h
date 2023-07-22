@@ -7,7 +7,7 @@
 #include "queue.h"
 
 
-#define FIELDS (3 + 5 + 7 + 9 + 11 + 13)
+#define FIELDS (3 + 5 + 7 + 9 + 11 + 13 + 15 + 17 + 19)
 #define HIDDEN1 (27)
 #define ACTIONS (3)
 

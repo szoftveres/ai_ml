@@ -74,7 +74,7 @@ int
 main (int argc, char **argv) {
     time_t t;
     int gen = 0;
-    int difficulty = 1;
+    int difficulty = 3;
     int running;
     int c;
 
@@ -133,7 +133,7 @@ main (int argc, char **argv) {
         max = next_gen();
         printf("generation: %d (psize:%d), level:%d, hi-score: %d\n", gen, POP_SIZE, difficulty, max);
         usleep(50000u);
-        if (max > 1500) {
+        if (max > 2500) {
             printf("Increasing difficulty level!\n"); sleep(2);
             difficulty++;
         }
