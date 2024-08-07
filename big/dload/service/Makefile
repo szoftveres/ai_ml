@@ -21,7 +21,7 @@ OBJECTS = $(OBJDIR)/main.o          \
 all: binary
 
 binary: elf
-	objcopy -O binary -j .text -j .rodata $(OBJDIR)/$(PROGRAM).elf $(OBJDIR)/$(PROGRAM).bin
+	objcopy -O binary -j .text -j .rodata -j .data -j .bss $(OBJDIR)/$(PROGRAM).elf $(OBJDIR)/$(PROGRAM).bin
 
 ## Compile source files
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
