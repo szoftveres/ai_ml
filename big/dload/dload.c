@@ -14,7 +14,7 @@
 #include <dlfcn.h>
 #include <gnu/lib-names.h>
 
-#include "serviceapi.h"
+#include "hostapi.h"
 
 size_t fsize (const char *filename) {
     struct stat st;
@@ -69,24 +69,31 @@ int push (char* buf, int len) {
 
 
 int
-main (void) {
+main (int argc, char** argv) {
 
-    serviceapi_t api = {
+    hostapi_t api = {
         .pull_data = pull,
-        .push_data = push
+        .push_data = push,
+        .malloc = malloc,
+        .free = free,
+        .conlog = printf,
     };
 
     void* cspace;
     int rc;
 
     size_t binfsize;
-    char* binfname = "service/service.bin";
+
+    if (argc < 2) {
+        printf("Service binary name required\n");
+        return 1;
+    }
 
     servicefn_t fp;
 
-    binfsize = fsize(binfname);
+    binfsize = fsize(argv[1]);
 
-    printf("Bin size: %u\n", binfsize);
+    printf("Bin size: %u\n", (unsigned)binfsize);
 
     /* Allocating an area that can be written as well as executed from */
     cspace = mmap(NULL, binfsize,
@@ -95,7 +102,7 @@ main (void) {
                   MAP_ANONYMOUS, -1, 0);
 
 
-    binload(binfname, binfsize, cspace);
+    binload(argv[1], binfsize, cspace);
 
     /* By convention the first function is the entry point */
     fp = cspace;

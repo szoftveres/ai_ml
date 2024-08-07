@@ -4,24 +4,30 @@ INCLDIR = .
 OUTDIR = .
 
 ## General Flags
-PROGRAM = service
+PROGRAM = dload
 CC = gcc
 AS = gcc
 LD = gcc
-CFLAGS = -Wall -Wextra -g -nostdlib -ffreestanding -fPIC
+CFLAGS = -Wall -Wextra -g # -fPIC
 ASFLAGS = 
-LDFLAGS = -lpthread -nostdlib -ffreestanding -fPIC
+LDFLAGS = -lpthread  #-fPIC
 
 ## Objects that must be built in order to link
 ## XXX The order is important, asmstart MUST be the first one !!
-OBJECTS = $(OBJDIR)/main.o          \
+OBJECTS = $(OBJDIR)/dload.o          \
+
+
+SUBDIRS = service
+.PHONY : $(SUBDIRS)
 
 
 ## Build both compiler and program
-all: binary
+all: $(SUBDIRS) binary
 
 binary: elf
-	objcopy -O binary -j .text $(OBJDIR)/$(PROGRAM).elf $(OBJDIR)/$(PROGRAM).bin
+
+$(SUBDIRS):
+	$(MAKE) -C $@
 
 ## Compile source files
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
@@ -32,8 +38,9 @@ $(OBJDIR)/%.o : $(SRCDIR)/%.S
 	$(AS) $(ASFLAGS) -c -o $(OBJDIR)/$*.o $<
 
 elf: $(OBJECTS)
-	$(LD) -o $(OBJDIR)/$(PROGRAM).elf $(OBJECTS) $(LDFLAGS)
+	$(LD) -o $(OBJDIR)/$(PROGRAM).bin $(OBJECTS) $(LDFLAGS)
 
 clean:
-	-rm -rf $(OBJECTS) $(OBJDIR)/$(PROGRAM).elf $(OBJDIR)/$(PROGRAM).bin
+	-rm -rf $(OBJECTS) $(OBJDIR)/$(PROGRAM).bin
+	for dir in $(SUBDIRS); do $(MAKE) clean -C $$dir; done
 
